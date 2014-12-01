@@ -27,19 +27,52 @@ var Videos = function(buscar){
 		myPlay.className = 'playIcon';
 		myPlay.id = i;
 		myPlay.align = 'center';
-		//Evento onClick: aquí si nos clican la imagen de play, se eliminará la imagen y se colocará el video de youtube en su lugar.
-		myPlay.onclick = function(){
-	//		console.log(this.id);
-			var myEmbed = document.createElement('embed');
-			myEmbed.src = response.data.items[this.id].content[5];
-			this.parentElement.insertBefore(myEmbed, this.parentElement.firstChild);
-			this.parentElement.removeChild(this);
-		};
+		//Evento onClick.
+		myPlay.addEventListener("click", doClick, false);
 		var myP = document.createElement('p');
 		myP.innerHTML = response.data.items[i].title;
 		myP.align = 'center';
 		div.appendChild(myPlay);
 		div.appendChild(myP);
+	}
+
+	//Funcion del evento onClick: aquí si nos clican la imagen de play, se eliminará la imagen y se colocará el video de youtube en su lugar.
+	function doClick(){
+		var myEmbed = document.createElement('embed');
+		myEmbed.src = response.data.items[this.id].content[5];
+		this.parentElement.insertBefore(myEmbed, this.parentElement.firstChild);
+		this.parentElement.removeChild(this);
+	}
+}
+
+//Bonus Track: SearchEngine
+//Objeto footer
+var Footer = function(){
+	var footer = document.createElement('footer');
+	footer.id = 'footer';
+	document.body.appendChild(footer);
+	var myFooter = document.getElementById("footer");
+
+	var myInput = document.createElement('input');
+	myInput.type = 'text';
+	myInput.id = 'input';
+	myInput.placeholder = 'search...'
+	myFooter.appendChild(myInput);
+
+	var myButton = document.createElement('input');
+	myButton.type = 'submit';
+	myButton.id = 'button';
+	myButton.value = 'SEARCH'
+	myFooter.appendChild(myButton);
+
+	//Creamos el evento onCLick: aqui primero borramos todos los elementos de daDiv y luego hacemos la busqueda.
+	myButton.addEventListener("click", doClick, false);
+	function doClick(){
+		console.log(this.parentElement.firstChild.value);
+		while (daDiv.hasChildNodes()) {
+			daDiv.removeChild(daDiv.lastChild);
+		}
+		var search = Videos("https://gdata.youtube.com/feeds/api/videos?v=2&alt=jsonc&max-results=20&q="+this.parentElement.firstChild.value);
 	}
 }
 
@@ -50,30 +83,5 @@ document.body.appendChild(daDiv);
 
 //Cargamos los videos más populares.
 var videos = Videos("https://gdata.youtube.com/feeds/api/standardfeeds/most_popular?v=2&alt=jsonc");
-
-//Bonus Track: SearchEngine
-var footer = document.createElement('footer');
-footer.id = 'footer';
-document.body.appendChild(footer);
-var myFooter = document.getElementById("footer");
-
-var myInput = document.createElement('input');
-myInput.type = 'text';
-myInput.id = 'input';
-myInput.placeholder = 'search...'
-myFooter.appendChild(myInput);
-
-var myButton = document.createElement('input');
-myButton.type = 'submit';
-myButton.id = 'button';
-myButton.value = 'SEARCH'
-myFooter.appendChild(myButton);
-
-//Creamos el evento onCLick: aqui primero borramos todos los elementos de daDiv y luego hacemos la busqueda.
-myButton.onclick = function(){
-	console.log(this.parentElement.firstChild.value);
-	while (daDiv.hasChildNodes()) {
-		daDiv.removeChild(daDiv.lastChild);
-	}
-	var search = Videos("https://gdata.youtube.com/feeds/api/videos?v=2&alt=jsonc&max-results=20&q="+this.parentElement.firstChild.value);
-}
+var footer = Footer();
+	
