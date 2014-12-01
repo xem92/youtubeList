@@ -1,0 +1,62 @@
+body {
+	margin: 0px;
+	border: 0px;
+	padding: 0px;
+	background-color: black;
+}
+
+.bigDivVideo {
+	width: 100%;
+	height: auto;
+	overflow:hidden;
+}
+
+.litDiv {
+	width: 25%;
+	height: 250px;
+	float:left;
+	display: block;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+
+.playIcon {
+	margin-top: 50px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+embed {
+	width: 100%;
+	height: 250px;
+	display: block;
+}
+
+p {
+	color: white;
+	font-family: arial;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+footer {
+	width: 100%;
+	height: 70px;
+	margin-top: 30px;
+	background-color: #848484;
+}
+
+input {
+	position: absolute;
+	margin-top: 10px;
+}
+
+#button {
+	margin-top: 40px;
+	left: 50%;
+}
+
+#input {
+	left: 47%;
+}
